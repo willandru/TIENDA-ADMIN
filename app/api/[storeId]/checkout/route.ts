@@ -53,7 +53,7 @@ export async function POST(
 
   console.log(products)
 
-  return NextResponse.json({ url: `${process.env.FRONTEND_STORE_URL}/cart?success=1` }, {
+  return NextResponse.json({ message: "well done" }, {
     headers: corsHeaders
   });
 };
