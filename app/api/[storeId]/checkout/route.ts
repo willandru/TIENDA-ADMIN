@@ -51,9 +51,11 @@ export async function POST(
     }
   });
 
-  console.log(products)
+ 
+  const orderID= order.id;
+  console.log('Trying to send this to the fronend: ', orderID);
 
-  return NextResponse.json({ message: "well done" }, {
+  return NextResponse.json( {orderID} ,  {
     headers: corsHeaders
   });
 };

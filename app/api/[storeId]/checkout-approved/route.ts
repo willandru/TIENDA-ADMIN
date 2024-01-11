@@ -19,19 +19,31 @@ export async function POST(
     req: Request,
     { params }: { params: { storeId: string } }
   ) {
-   
 
-    const { data, orderDetails } = await req.json();
-  
-    if (!data || !orderDetails ) {
-      return new NextResponse('Data, orderDetails, and myOrderID are required', { status: 400 });
-    }
+    const { productIds, data, orderDetails } = await req.json();
+
+    if (!productIds || productIds.length === 0 || !data || !orderDetails ) {
+        return new NextResponse("Product ids, Data, orderDetails, and myOrderID are required", { status: 400 });
+      }
+    
+      const products = await prismadb.product.findMany({
+        where: {
+          id: {
+            in: productIds
+          }
+        }
+      });
+    
+    
+    
+
   
     // Log the data received from the frontend
     console.log('Data received from frontend:', data);
     //console.log('My ID:', myOrderID);
     console.log('Order Details received from frontend:', orderDetails);
   
+    console.log('Order ID received :');
     const emailAdress = orderDetails?.payer?.email_address;
     const idOrder = orderDetails?.order?.id;
     const shippingAddress = orderDetails?.purchase_units[0]?.shipping?.address;
@@ -49,9 +61,35 @@ export async function POST(
     console.log('The email:', emailAdress);
     console.log('The String adress:', addressString);
     console.log('Shipping Address:', shippingAddress);
+
+
+    const order = await prismadb.order.create({
+        data: {
+          storeId: params.storeId,
+          isPaid: true,
+          address: addressString,
+          phone: emailAdress || '',
+          orderItems: {
+            create: productIds.map((productId: string) => ({
+              product: {
+                connect: {
+                  id: productId
+                }
+              }
+            }))
+          }
+        }
+      });
+    
+     
+      const orderID= order.id;
+      console.log('DO WE HAVE IT?: ', orderID);
+    
+
   
-    return NextResponse.json({}, {
-      headers: corsHeaders,
-    });
+      return NextResponse.json({}, {
+        headers: corsHeaders,
+      });
+      
   }
   
