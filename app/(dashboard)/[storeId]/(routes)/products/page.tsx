@@ -18,6 +18,7 @@ const ProductsPage = async ({
             category:true,
             size:true,
             color:true,
+            
         },
         orderBy:{
             createdAt: 'desc'
@@ -33,6 +34,8 @@ const ProductsPage = async ({
         category: item.category.name,
         size: item.size.name,
         color: item.color.value,
+        quantityInStock: item.quantityInStock,
+        quantityInCheckout: item.quantityInCheckout,
         createdAt: format(item.createdAt, "MMMM do, yyyy")
     }));
 
