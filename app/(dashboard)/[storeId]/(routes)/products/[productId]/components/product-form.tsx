@@ -42,6 +42,7 @@ const formSchema = z.object({
             isFeatured:z.boolean().default(false).optional(),
             isArchived:z.boolean().default(false).optional(),
             quantityInStock: z.coerce.number().min(1),
+            quantityOnCheckout:z.coerce.number().min(1),
 
 });
 
@@ -81,7 +82,8 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         defaultValues: initialData  ? {
             ...initialData,
             price: parseFloat(String(initialData?.price)),
-            quantityInStock: parseFloat(String(initialData?.quantityInStock))
+            quantityInStock: parseFloat(String(initialData?.quantityInStock)),
+            quantityOnCheckout:parseFloat(String(initialData?.quantityOnCheckout)),
         } : {
             name:'',
             images:[],
@@ -91,7 +93,8 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             sizeId:'',
             isFeatured:false,
             isArchived: false,
-            quantityInStock: 0
+            quantityInStock: 0,
+            quantityOnCheckout:0,
         }
     });
 
@@ -216,6 +219,19 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 render={({field}) => (
                     <FormItem>
                         <FormLabel>Stock</FormLabel>
+                        <FormControl>
+                            <Input type="number" disabled={loading} placeholder="0.00" {...field}/>
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+                />
+                <FormField 
+                control={form.control}
+                name="quantityOnCheckout"
+                render={({field}) => (
+                    <FormItem>
+                        <FormLabel>Checkout</FormLabel>
                         <FormControl>
                             <Input type="number" disabled={loading} placeholder="0.00" {...field}/>
                         </FormControl>
