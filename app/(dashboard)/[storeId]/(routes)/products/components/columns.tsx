@@ -10,8 +10,7 @@ export type ProductColumn = {
   size: string
   category: string
   color: string
-  quantityInStock: number
-  quantityInCheckout: number
+  quantityInStock: string
   isFeatured: boolean
   isArchived: boolean
   createdAt: string

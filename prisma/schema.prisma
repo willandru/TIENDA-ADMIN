@@ -90,8 +90,8 @@ model Product {
   isFeatured Boolean @default(false)
   isArchived Boolean @default(false)
   sizeId String
-  quantityInStock Int @default(0)
-  quantityInCheckout Int @default(0)
+  quantityInStock Decimal
+
   size Size @relation(fields: [sizeId], references: [id])
   colorId String
   color Color @relation(fields: [colorId], references: [id])

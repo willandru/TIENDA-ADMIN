@@ -34,8 +34,7 @@ const ProductsPage = async ({
         category: item.category.name,
         size: item.size.name,
         color: item.color.value,
-        quantityInStock: item.quantityInStock,
-        quantityInCheckout: item.quantityInCheckout,
+        quantityInStock: formatter.format(item.quantityInStock.toNumber()),
         createdAt: format(item.createdAt, "MMMM do, yyyy")
     }));
 
