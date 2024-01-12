@@ -2,6 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import { CellAction } from "./cell-action";
+import { Decimal } from "@prisma/client/runtime/library";
 
 export type ProductColumn = {
   id: string
@@ -14,7 +15,6 @@ export type ProductColumn = {
   isFeatured: boolean
   isArchived: boolean
   createdAt: string
-  quantityOnCheckout: string
 }
 
 export const columns: ColumnDef<ProductColumn>[] = [
@@ -41,10 +41,6 @@ export const columns: ColumnDef<ProductColumn>[] = [
   {
     accessorKey: "quantityInStock",
     header: "Quantity in Stock",
-  },
-  {
-    accessorKey: "quantityOnCheckout",
-    header: "On checkout"
   },
   {
     accessorKey: "size",

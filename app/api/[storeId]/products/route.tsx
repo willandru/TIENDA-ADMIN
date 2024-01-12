@@ -8,7 +8,7 @@ export async function POST(req:Request,
         try{
             const {userId} = auth();
             const body = await req.json();
-            const {name, price, categoryId, colorId, sizeId, images, isFeatured, isArchived, quantityInStock, quantityOnCheckout} = body;
+            const {name, price, categoryId, colorId, sizeId, images, isFeatured, isArchived, quantityInStock} = body;
 
             if(!userId){
                 return new NextResponse("Unaunthenticated ", {status: 401})
@@ -70,8 +70,8 @@ export async function POST(req:Request,
                     },
                     isArchived,
                     isFeatured,
-                    quantityInStock,
-                    quantityOnCheckout
+                    quantityInStock
+                    
                     
                     // Add other properties as needed
                 }

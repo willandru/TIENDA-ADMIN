@@ -91,7 +91,6 @@ model Product {
   isArchived Boolean @default(false)
   sizeId String
   quantityInStock Decimal
-  quantityOnCheckout Decimal
   size Size @relation(fields: [sizeId], references: [id])
   colorId String
   color Color @relation(fields: [colorId], references: [id])
