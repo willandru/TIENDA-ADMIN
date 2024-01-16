@@ -20,7 +20,7 @@ export async function POST(
     { params }: { params: { storeId: string } }
   ) {
 
-    const { productIds, data, orderDetails } = await req.json();
+    const { productIds, data, orderDetails , quantity} = await req.json();
 
     if (!productIds || productIds.length === 0 || !data || !orderDetails ) {
         return new NextResponse("Product ids, Data, orderDetails, and myOrderID are required", { status: 400 });
@@ -38,12 +38,14 @@ export async function POST(
     
 
   
+      console.log("QUantity", quantity);
+      
     // Log the data received from the frontend
     console.log('Data received from frontend:', data);
     //console.log('My ID:', myOrderID);
     console.log('Order Details received from frontend:', orderDetails);
   
-    console.log('Order ID received :');
+    console.log('Products ID received :', productIds);
     const emailAdress = orderDetails?.payer?.email_address;
     const idOrder = orderDetails?.order?.id;
     const shippingAddress = orderDetails?.purchase_units[0]?.shipping?.address;
